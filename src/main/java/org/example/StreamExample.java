@@ -1,12 +1,15 @@
 package org.example;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class StreamExample {
     public static void main(String[] args) {
         //ex1();
-        ex2();
+        //ex2();
+        //ex3();
+        ex4();
 
     }
     // Terminal operation
@@ -47,14 +50,33 @@ public class StreamExample {
         System.out.println("optionalMax = " + optionalMax);
         System.out.println("Max = " + optionalMax.get());
 
-
-
         System.out.println("____Min____");
         Optional<Integer> optionalMin = numbers.stream().min(comparator);
         System.out.println("optionalMin = " + optionalMin);
         System.out.println("Min = " + optionalMin.get());
 
+    }
 
+    public static void ex3(){
+        List<String> names = Arrays.asList("Alice", "Bob"," Charles", "David", "Eve");
+        Optional<String> optionalName= names.stream().findFirst();
+        // Optional<String> optionalName= names.stream().findAny();  // in parallel "more advance"
 
+        if (optionalName.isPresent()){
+            System.out.println("Name = " + optionalName.get());
+        }else {
+            System.out.println("No element found");
+        }
+    }
+
+    public static void ex4(){
+        List<Integer> numbers = Arrays.asList(2,4,6,8,10,12,13);
+        Predicate<Integer> even = n -> n%2 == 0;
+        boolean isAllEven = numbers.stream().allMatch(even); // It should all numbers in the list of numbers even to be TRUE
+        System.out.println("isAllEven = " + isAllEven);
+        boolean isAnyEven = numbers.stream().anyMatch(even);
+        System.out.println("isAnyEven = " + isAnyEven);
+        boolean isNoneEven = numbers.stream().noneMatch(even);
+        System.out.println("isNoneEven = " + isNoneEven);
     }
 }
